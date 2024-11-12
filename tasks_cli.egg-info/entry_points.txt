@@ -1,0 +1,2 @@
+[console_scripts]
+tasks = src.__init__:Main.main
