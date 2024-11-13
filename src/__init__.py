@@ -34,7 +34,7 @@ class Main:
             "updatedAt": Main.current_time,
         })
 
-        print(f"Added task with id {new_id}")
+        print(f"Added task with id [{new_id}]")
 
     # find a task by its id
     # returns NoneType if none is found
@@ -54,8 +54,8 @@ class Main:
         # change the update time
         current_task["updatedAt"] = Main.current_time
 
-        print(f"Updated  #{current_task['id']
-                           } description to '{Main.args[3]}'")
+        print(f"Updated task id [{current_task['id']}] description to '{
+              Main.args[3]}'")
 
     # delete task
     def delete_task(pos):
@@ -74,12 +74,20 @@ class Main:
         pass
 
     # list tasks
-    def list_tasks():
-        pass
-        # list all
-        # list by todo
-        # list by done
-        # list by in progress
+    def list_tasks(option):
+        count = 0
+        message = ""
+
+        for task in Main.tasks:
+            if task['status'] == option or option == 'all':
+                count += 1
+                message += f"id [{task['id']}] '{task['description']}' \n    Created on:\t{
+                    task['createdAt']}\n    Updated on:\t{task['updatedAt']}\n\n"
+        if option == "all":
+            print(f"Here's all {count} tasks:\n")
+        else:
+            print(f"Here's all {count} '{option}' tasks:\n")
+        print(message)
 
     # get the task list and load it into a dict
     def load_json():
@@ -90,6 +98,37 @@ class Main:
     def save_json():
         with open(Main.path + "tasks-cli.json", "w") as file:
             file.writelines(json.dumps(Main.tasks))
+
+    # process args
+    # this is a mess
+    # remember: the first arg in args is the
+    # file that is being called, so we ignore it
+    def handle_args():
+        # skip this function if there are no args
+        if not len(Main.args) > 1:
+            return
+
+        match Main.args[1]:
+            case "add":
+                if len(Main.args) > 2:
+                    Main.add_task(Main.args[2])
+                else:
+                    print("Error: Description needed with 'add' argument")
+            case "update":
+                try:
+                    index = Main.find_by_id(Main.args[2])
+                except Exception as e:
+                    print(f"ERROR: please provide valid integer for id\n {e}")
+                else:
+                    Main.update_task(index)
+            case "list":
+                if len(Main.args) > 2:
+                    Main.list_tasks(Main.args[2])
+                else:
+                    Main.list_tasks("all")
+            case _:
+                print("ERROR: unknown error occured, no flags received" +
+                      "\nor incorrect flags received.")
 
     # main entry point
     def main():
@@ -107,29 +146,8 @@ class Main:
         # Load the json file
         Main.load_json()
 
-        # process args
-        if len(Main.args) > 1:
-            match Main.args[1]:
-                case "add":
-                    if len(Main.args) > 2:
-                        Main.add_task(Main.args[2])
-                    else:
-                        print("Error: Description needed with 'add' argument")
-                case "update":
-                    if len(Main.args) > 2:
-                        if len(Main.args) > 3:
-                            try:
-                                index = Main.find_by_id(Main.args[2])
-                                Main.update_task(index)
-                            except Exception as e:
-                                print(
-                                    f"ERROR: please provide valid integer for id\n {e}")
-                        else:
-                            print("ERROR: please provide valid integer for id")
-                    else:
-                        print("ERROR: please provide the id of the task to update.")
-                case _:
-                    print("ERROR: unknown error occured, likely no flags received")
+        # handle the args
+        Main.handle_args()
 
         # save the file
         Main.save_json()
