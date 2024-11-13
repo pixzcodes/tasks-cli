@@ -1,6 +1,7 @@
 import sys
 import json
 import os
+import datetime
 
 
 class Main:
@@ -11,19 +12,57 @@ class Main:
     # grab args
     args = sys.argv
 
-    # for testing purposes
-    tasks = {
-        1: "Shop groceries",
-        2: "Take out the trash",
-        3: "Wash dishes",
-        4: "Vacuum house"
-    }
+    # list for tasks
+    tasks = []
+
+    # current time string
+    current_time = datetime.datetime.now().strftime("%m-%d-%Y %H:%M")
+
+    # add a task to the task list
+    def add_task(desc):
+        Main.tasks.append({
+            "id": Main.tasks.length,
+            "description": desc,
+            "status": "todo",
+            "createdAt": Main.current_time,
+            "updatedAt": Main.current_time,
+        })
+
+    # update task description
+    def update_task(task_id):
+        pass
+
+    # delete task
+    def delete_task(task_id):
+        pass
+
+    # mark a task a todo
+    def mark_task_todo(task_id):
+        pass
+
+    # mark a task as in progress
+    def mark_task_inprogress(task_id):
+        pass
+
+    # mark a task as done
+    def mark_task_done(task_id):
+        pass
+
+    # list tasks
+    def list_tasks():
+        pass
+        # list all
+        # list by todo
+        # list by done
+        # list by in progress
 
     # get the task list and load it into a dict
     def load_json():
-        pass
+        with open(Main.path + "tasks-cli.json", "r") as file:
+            Main.tasks = json.loads(file.readline)
 
     # store task list dict into json file
+
     def save_json():
         with open(Main.path + "tasks-cli.json", "w") as file:
             file.writelines(json.dumps(Main.tasks))
@@ -40,3 +79,9 @@ class Main:
                 print(f"Permission denied: Unable to create '{Main.path}'.")
             except Exception as e:
                 print(f"An error occurred: {e}")
+
+        # Load the json file
+        Main.load_json()
+
+        # save the file
+        Main.save_json()
