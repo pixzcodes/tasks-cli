@@ -99,6 +99,20 @@ class Main:
         with open(Main.path + "tasks-cli.json", "w") as file:
             file.writelines(json.dumps(Main.tasks))
 
+    def display_help():
+        print("""
+            A simple and minimalistic CLI tool to track tasks!
+
+            usage: tasks-cli [option] [id | descr | status] [descr]
+
+            Options:
+            add (descr)             : Takes a (descr)iption of the task as a string
+            update (id) (descr)     : Takes a task (id) as an integer, then a task (descr)iption as a string
+            list [status]           : Takes an optional string for the status, defaults to showing all tasks. Status can be one of the following: todo, done, in-progress
+            
+            Detailed man page coming soon.
+        """)
+
     # process args
     # this is a mess
     # remember: the first arg in args is the
@@ -126,6 +140,8 @@ class Main:
                     Main.list_tasks(Main.args[2])
                 else:
                     Main.list_tasks("all")
+            case "help":
+                Main.display_help()
             case _:
                 print("ERROR: unknown error occured, no flags received" +
                       "\nor incorrect flags received.")
