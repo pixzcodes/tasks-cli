@@ -12,5 +12,5 @@ pip install .
 
 Now run 
 ```
-tasks-cli help
+tasks-cli
 ```
