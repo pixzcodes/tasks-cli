@@ -1,7 +1,13 @@
-# tasks-cli
+# UNDER DEVELOPMENT
+
+## tasks-cli
 A basic CLI task management tool
 
 ## Installing
+This project is still under development but if you would like to try it 
+out and provide some feedback feel free to install it.
+
+Installing has only been tested on linux so far.
 To install, clone the repository and navigate to the root of
 the project (where setup.py is located).
 
