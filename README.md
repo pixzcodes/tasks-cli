@@ -20,6 +20,10 @@ Now run
 ```
 tasks-cli
 ```
+NOTE: this creates the following file and filepath
+```
+~/.cache/tasks-cli/tasks-cli.json
+```
 
 # help page
 ```
