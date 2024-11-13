@@ -20,8 +20,14 @@ class Main:
 
     # add a task to the task list
     def add_task(desc):
+        # figure out what the id for the new task will be.
+        # we do it this way so that we don't end up with
+        # two tasks with the same id after we delete a task
+        new_id = (Main.tasks[Main.tasks.length - 1]["id"]) + 1
+
+        # generate new task
         Main.tasks.append({
-            "id": Main.tasks.length,
+            "id": new_id,
             "description": desc,
             "status": "todo",
             "createdAt": Main.current_time,
@@ -30,7 +36,7 @@ class Main:
 
     # update task description
     def update_task(task_id):
-        pass
+        Main.tasks[task_id]["description"] = Main.args[3]
 
     # delete task
     def delete_task(task_id):
