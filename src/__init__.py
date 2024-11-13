@@ -81,7 +81,7 @@ class Main:
         for task in Main.tasks:
             if task['status'] == option or option == 'all':
                 count += 1
-                message += f"id [{task['id']}] '{task['description']}' \n    Created on:\t{
+                message += f"id [{task['id']}] '{task['description']}' \n    Status: {task['status']}\n    Created on:\t{
                     task['createdAt']}\n    Updated on:\t{task['updatedAt']}\n\n"
         if option == "all":
             print(f"Here's all {count} tasks:\n")
