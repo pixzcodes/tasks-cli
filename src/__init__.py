@@ -59,7 +59,8 @@ class Main:
 
     # delete task
     def delete_task(pos):
-        pass
+        Main.tasks.pop(pos)
+        print(f"Successfully deleted task id [{Main.args[2]}]")
 
     # mark a task a todo
     def mark_task_todo(pos):
@@ -134,7 +135,7 @@ Detailed man page coming soon.
                 try:
                     index = Main.find_by_id(Main.args[2])
                 except Exception as e:
-                    print(f"ERROR: please provide valid integer for id\n {e}")
+                    print(f"ERROR: please provide valid id integer\n {e}")
                 else:
                     Main.update_task(index)
             case "list":
@@ -144,6 +145,22 @@ Detailed man page coming soon.
                     Main.list_tasks("all")
             case "help":
                 Main.display_help()
+            case "delete":
+                if len(Main.args) > 2 and Main.args[2].isnumeric():
+                    print(
+                        f"Are you sure you want to delete task id [{Main.args[2]}]")
+                    user_input = input("(y)es/(n)o: ")
+                    if user_input.upper() == "Y" or user_input.upper() == "YES":
+                        try:
+                            pos = Main.find_by_id(int(Main.args[2]))
+                            Main.delete_task(pos)
+                        except Exception as e:
+                            print(
+                                f"ERROR: please provide a valid id integer\n {e}")
+                    else:
+                        return
+                else:
+                    print("ERROR: 'delete' requires valid task id")
             case _:
                 print("ERROR: unknown error occured, no flags received" +
                       "\nor incorrect flags received.")
