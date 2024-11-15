@@ -36,6 +36,8 @@ add (descr)             : Takes a (descr)iption of the task as a string
 update (id) (descr)     : Takes a task (id) as an integer, then a task (descr)iption as a string
 list [status]           : Takes an optional string for the status, defaults to showing all tasks.
                           Status can be one of the following: todo, done, in-progress
+delete (id)             : Takes a task (id) as an integer and removes it completely from the task list.
+help                    : Displays this message.
 
 Detailed man page coming soon.
 ```
