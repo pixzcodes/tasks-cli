@@ -54,7 +54,7 @@ class Main:
         # change the update time
         current_task["updatedAt"] = Main.current_time
 
-        print(f"Updated task id [{current_task['id']}] description to '{
+        print(f"Updated task: id [{current_task['id']}] description to '{
               Main.args[3]}'")
 
     # delete task
@@ -63,12 +63,9 @@ class Main:
         print(f"Successfully deleted task id [{Main.args[2]}]")
 
     # mark a task a todo
-    def mark_task_todo(pos):
-        pass
-
-    # mark a task as in progress
-    def mark_task_inprogress(pos):
-        pass
+    def mark_task_in_progress(pos):
+        Main.tasks[pos]['status'] = "in-progress"
+        print(f"Updated task: id [{Main.args[2]}] status to 'in-progress'")
 
     # mark a task as done
     def mark_task_done(pos):
@@ -113,6 +110,7 @@ list [status]           : Takes an optional string for the status, defaults to s
                           Status can be one of the following: todo, done, or in-progress.
 delete (id)             : Takes a task (id) as an integer and removes it completely from the task list.
 help                    : Displays this message.
+mark-in-progress (id)   : Changes status of given task by (id) to 'in-progress'
 
 Detailed man page coming soon.
         """)
@@ -163,6 +161,14 @@ Detailed man page coming soon.
                         return
                 else:
                     print("ERROR: 'delete' requires valid task id")
+            case "mark-in-progress":
+                try:
+                    pos = Main.find_by_id(int(Main.args[2]))
+                    Main.mark_task_in_progress(pos)
+                except Exception as e:
+                    print(
+                        f"ERROR: please provide a valid id integer\n {e}")
+
             case _:
                 print("ERROR: unknown error occured, no flags received" +
                       "\nor incorrect flags received.")

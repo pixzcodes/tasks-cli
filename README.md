@@ -38,6 +38,7 @@ list [status]           : Takes an optional string for the status, defaults to s
                           Status can be one of the following: todo, done, in-progress
 delete (id)             : Takes a task (id) as an integer and removes it completely from the task list.
 help                    : Displays this message.
+mark-in-progress (id)   : Changes status of given task by (id) to 'in-progress'
 
 Detailed man page coming soon.
 ```
