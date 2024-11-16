@@ -69,7 +69,8 @@ class Main:
 
     # mark a task as done
     def mark_task_done(pos):
-        pass
+        Main.tasks[pos]['status'] = "done"
+        print(f"Updated task: id [{Main.args[2]}] status to 'done'")
 
     # list tasks
     def list_tasks(option):
@@ -111,6 +112,7 @@ list [status]           : Takes an optional string for the status, defaults to s
 delete (id)             : Takes a task (id) as an integer and removes it completely from the task list.
 help                    : Displays this message.
 mark-in-progress (id)   : Changes status of given task by (id) to 'in-progress'
+mark-done (id)          : Changes status of given task by (id) to 'done'
 
 Detailed man page coming soon.
         """)
@@ -168,7 +170,12 @@ Detailed man page coming soon.
                 except Exception as e:
                     print(
                         f"ERROR: please provide a valid id integer\n {e}")
-
+            case "mark-done":
+                try:
+                    pos = Main.find_by_id(int(Main.args[2]))
+                    Main.mark_task_done(pos)
+                except Exception as e:
+                    print(f"ERROR: please provide a valid id integer\n {e}")
             case _:
                 print("ERROR: unknown error occured, no flags received" +
                       "\nor incorrect flags received.")

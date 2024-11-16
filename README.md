@@ -39,6 +39,14 @@ list [status]           : Takes an optional string for the status, defaults to s
 delete (id)             : Takes a task (id) as an integer and removes it completely from the task list.
 help                    : Displays this message.
 mark-in-progress (id)   : Changes status of given task by (id) to 'in-progress'
+mark-done (id)          : Changes status of given task by (id) to 'done'
 
 Detailed man page coming soon.
 ```
+
+# TODO
+
+- man page
+- multiple list creation and management
+- install script
+- windows version
