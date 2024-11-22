@@ -46,8 +46,5 @@ Detailed man page coming soon.
 
 # TODO
 
-- modularize code base
 - man page
 - multiple list creation and management
-- install script
-- windows version
