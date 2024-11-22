@@ -89,14 +89,19 @@ class Main:
         print(message)
 
     # get the task list and load it into a dict
+    # concats the json file into a string then
+    # loads that string into a dict
     def load_json():
+        str = ""  # base string
         with open(Main.path + "tasks-cli.json", "r") as file:
-            Main.tasks = json.loads(file.readline())
+            for line in file:
+                str += line.strip()  # building our string
+        Main.tasks = json.loads(str)  # load that string in as a dict
 
     # store task list dict into json file
     def save_json():
         with open(Main.path + "tasks-cli.json", "w") as file:
-            file.writelines(json.dumps(Main.tasks))
+            file.writelines(json.dumps(Main.tasks, indent=4))
 
     def display_help():
         print("""
